@@ -7,7 +7,8 @@
         'ssLogin',
         'ssHome',
         'ssUser',
-        'ssGroup'
+        'ssGroup',
+        'ssWish'
     ])
     
         .constant('FIREBASE_URL', 'https://wa-secret-santa.firebaseio.com/')

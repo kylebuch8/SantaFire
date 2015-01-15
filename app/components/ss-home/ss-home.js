@@ -20,17 +20,20 @@
                                     ref = new Firebase(FIREBASE_URL),
                                     groupsRef = ref.child('groups'),
                                     indexRef = $firebase(ref.child('users/' + user.uid + '/groups')).$asArray(),
+                                    wishesRef = $firebase(ref.child('wishes/' + user.uid)).$asArray(),
                                     groups = [],
                                     length = 0;
                                 
-                                indexRef.$loaded().then(function (data) {
-                                    var i = 0;
+                                $q.all([indexRef.$loaded(), wishesRef.$loaded()]).then(function (result) {
+                                    var i = 0,
+                                        returnObj = {
+                                            'user': user,
+                                            'wishes': result[1]
+                                        };
                                     length = indexRef.length;
                                     
                                     if (length === 0) {
-                                        deferred.resolve({
-                                            'user': user
-                                        });
+                                        deferred.resolve(returnObj);
                                     }
 
                                     for (i; i < length; i += 1) {
@@ -39,10 +42,8 @@
                                             groups.push(dataSnap.val());
                                             
                                             if (groups.length === length) {
-                                                deferred.resolve({
-                                                    'user': user,
-                                                    'groups': groups
-                                                });
+                                                returnObj.groups = groups;
+                                                deferred.resolve(returnObj);
                                             }
                                         });
                                     }
@@ -58,5 +59,6 @@
         .controller('HomeController', ['$scope', 'data', function ($scope, data) {
             $scope.user = data.user;
             $scope.groups = data.groups;
+            $scope.wishes = data.wishes;
         }]);
 }());

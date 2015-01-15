@@ -1,4 +1,7 @@
-<a href="#/group/create">Create Group</a>
+<ul>
+    <li><a href="#/group/create">Create Group</a></li>
+    <li><a href="#/wish">Create Wish</a></li>
+</ul>
 
 <div>
     <img ng-src="{{user.google.cachedUserProfile.picture}}" width="100" height="100" style="border-radius: 50%;">
@@ -8,4 +11,9 @@
 <h1>Groups</h1>
 <div ng-repeat="group in groups">
     {{group.name}}
+</div>
+
+<h1>Items</h1>
+<div ng-repeat="wish in wishes">
+    {{wish.name}}
 </div>
