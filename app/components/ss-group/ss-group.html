@@ -1,0 +1,10 @@
+Create a Group
+<form name="createForm" ng-submit="createForm.$valid && create()">
+    <div>
+        <input type="text" ng-model="group.name" placeholder="Group Name" required>
+    </div>
+    <div>
+        <input type="password" ng-model="group.password" placeholder="Group Password" required>
+    </div>
+    <button>Create</button>
+</form>
